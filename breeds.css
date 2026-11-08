@@ -1,0 +1,942 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f8f9fa;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header */
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #2c3e50, #3495db);
+    color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    /* vertically centers img + text */
+    gap: 8px;
+    /* space between the icon and text */
+}
+
+.logo a {
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    /* make the image + text align in a row */
+    align-items: center;
+    /* vertically center them */
+    gap: 8px;
+}
+
+.logo img {
+    width: 3rem;
+    height: 3rem;
+    object-fit: contain;
+    display: block;
+
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Search bar styling (adjust for icon and size) */
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    /* Add space between search bar and cart */
+}
+
+.search-container input {
+    padding: 0.5rem 1rem 0.5rem 2.5rem;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    outline: none;
+    width: 220px;
+    /* Adjust width if needed */
+    font-size: 1rem;
+}
+
+.search-container svg {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 10px;
+    fill: #666;
+}
+
+/* Suggestions List Styling */
+.suggestions-container {
+    display: none;
+    /* Hidden by default */
+    position: absolute;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    /* Rounded edges for the suggestions box */
+    max-height: 300px;
+    overflow-y: auto;
+    width: 100%;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    /* Match font family */
+}
+
+/* Style for each suggestion item */
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+    color: #333;
+    /* Dark text for better visibility */
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    /* Smooth hover effect */
+}
+
+.suggestion-item:hover {
+    background-color: #f0f0f0;
+    /* Lighter hover background */
+    color: #2c3e50;
+    /* Slight dark color on hover */
+}
+
+.suggestions-list li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.suggestions-list li:hover {
+    background-color: #f0f0f0;
+}
+
+.cart-icon svg {
+    width: 24px;
+    height: 24px;
+    fill: white;
+    cursor: pointer;
+}
+
+
+/* ========================
+   Responsive adjustments
+   ======================== */
+@media (max-width: 900px) {
+    .nav {
+        padding: 1rem;
+        justify-content: center;
+    }
+
+    .nav-links {
+        gap: 1rem;
+        justify-content: center;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .search-container input {
+        width: 180px;
+    }
+}
+
+@media (max-width: 600px) {
+    .nav {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .nav-links a {
+        width: 90%;
+        margin: 5px 0;
+        padding: 0.7rem 0;
+    }
+
+    .search-container input {
+        width: 90%;
+        margin: 10px 0;
+    }
+
+    .cart-icon {
+        margin-top: 10px;
+    }
+}
+
+/* Main Content Layout */
+.breeds-main {
+    padding: 2rem 0;
+    min-height: calc(100vh - 200px);
+}
+
+.breeds-container {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+/* 1-column layout */
+.breeds-container.sidebar-collapsed {
+    grid-template-columns: 1fr !important;
+}
+
+/* Filter Sidebar */
+.filters-sidebar {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 2rem;
+}
+
+.filters-sidebar h2 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #3498db;
+}
+
+.filter-group {
+    margin-bottom: 1.5rem;
+}
+
+.filter-group h3 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.filter-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    padding: 0.25rem 0;
+}
+
+.filter-group input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+
+.filter-group select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: white;
+}
+
+.btn-primary,
+.btn-secondary {
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #2980b9, #2573a7);
+}
+
+.btn-secondary {
+    background: #95a5a6;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #7f8c8d;
+}
+
+/* Breeds Grid */
+.breeds-grid h1 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.breeds-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.breed-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.breed-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.breed-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.breed-info {
+    padding: 1rem;
+}
+
+.breed-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.breed-traits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.trait {
+    background: #ecf0f1;
+    padding: 0.25rem 0.5rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    color: #2c3e50;
+}
+
+.view-profile-btn {
+    width: 100%;
+    padding: 0.5rem;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.view-profile-btn:hover {
+    background: #2980b9;
+}
+
+/* Footer Styles */
+.main-footer {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    color: white;
+    padding: 3rem 0 2rem;
+    margin-top: 3rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 2rem;
+}
+
+.footer-section h3,
+.footer-section h4 {
+    margin-bottom: 1rem;
+    color: #3498db;
+}
+
+.footer-section p {
+    margin-bottom: 0.5rem;
+    opacity: 0.9;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-section a {
+    color: white;
+    text-decoration: none;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+.footer-section a:hover {
+    opacity: 1;
+}
+
+/* Breed Profile Page Styles */
+.breed-profile-header {
+    background: linear-gradient(135deg, #2c3e50, #3498db);
+    color: white;
+    padding: 3rem 0;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.breed-profile-header h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.breed-key-facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.fact-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.fact-card h3 {
+    color: #3498db;
+    margin-bottom: 0.5rem;
+}
+
+.profile-section {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-section h2 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #ecf0f1;
+}
+
+.back-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: #95a5a6;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-bottom: 2rem;
+    transition: background-color 0.3s;
+}
+
+.back-button:hover {
+    background: #7f8c8d;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .breeds-container {
+        grid-template-columns: 1fr;
+    }
+
+    .filters-sidebar {
+        position: static;
+        margin-bottom: 2rem;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .nav {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .search-container input {
+        width: 150px;
+    }
+}
+
+.breeds-filters {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+}
+
+/* 2.breed cards appear 3 per row */
+.breeds-cards-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+/* --- Sidebar Toggle + 3-Column Grid --- */
+
+/* Move sidebar more left */
+.filters-sidebar {
+    margin-left: -30px !important;
+    /* adjust higher number for more left */
+    transition: transform 0.3s ease;
+}
+
+/* Hidden (collapsed) state */
+.filters-sidebar.collapsed {
+    transform: translateX(-120%);
+}
+
+/* Toggle Filter Button */
+.filter-toggle-btn {
+    display: block !important;
+    position: fixed;
+    top: 110px;
+    left: 15px;
+    z-index: 2000;
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+/* Make 3 cards per row */
+.breeds-cards-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+/* Make all cards equal height and align "View Profile" button */
+.breed-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.breed-card .view-profile-btn {
+    margin-top: auto;
+}
+
+/* Mobile behavior */
+@media (max-width: 900px) {
+    .filter-toggle-btn {
+        display: block;
+    }
+
+    .filters-sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 280px;
+        height: 100vh;
+        background: white;
+        margin-left: 0 !important;
+        transform: translateX(-120%);
+        padding: 20px;
+        box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
+        z-index: 1500;
+    }
+
+    .filters-sidebar.open {
+        transform: translateX(0);
+    }
+
+    .breeds-container {
+        grid-template-columns: 1fr;
+    }
+
+    .breeds-cards-container {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .breeds-grid {
+        transition: margin 0.3s ease;
+    }
+
+}
+
+/* When sidebar is collapsed (desktop) → show 4 cards per row */
+.filters-sidebar.collapsed~.breeds-grid .breeds-cards-container {
+    grid-template-columns: repeat(4, 1fr) !important;
+    margin-left: 0;
+    /* shift grid to the left */
+}
+
+/* When sidebar is open (normal) → show 3 cards per row */
+.breeds-cards-container {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* When the sidebar is collapsed, remove the left column entirely */
+.filters-sidebar.collapsed {
+    transform: translateX(-120%);
+}
+
+.filters-sidebar.collapsed~.breeds-grid {
+    grid-column: 1 / -1 !important;
+    /* span full width */
+}
+
+.filters-sidebar.collapsed~.breeds-grid .breeds-cards-container {
+    grid-template-columns: repeat(4, 1fr) !important;
+}
+
+/* Also change main grid layout so no space is reserved */
+.filters-sidebar.collapsed {
+    position: fixed;
+}
+
+.filters-sidebar.collapsed~.breeds-grid {
+    margin-left: 0 !important;
+}
+
+/*FOOTER*/
+.site-footer {
+    background-color: #0a364e;
+    border-top: 1px solid #e0ddc8;
+    padding: 32px 16px 28px;
+    margin-top: 40px;
+}
+
+.footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1.5fr 1.3fr;
+    gap: 32px;
+}
+
+.footer-col h3,
+.footer-col h4 {
+    margin: 0 0 12px;
+    font-family: "Poppins", system-ui, sans-serif;
+    color: #ffffff;
+}
+
+.footer-intro h3 {
+    font-size: 1.6rem;
+}
+
+.footer-intro svg {
+    width: 22px;
+    height: 22px;
+    fill: #ffffff;
+}
+
+.footer-intro p {
+    margin: 0 0 6px;
+    color: #fffad8;
+    line-height: 1.4;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-col ul li {
+    margin-bottom: 6px;
+}
+
+.footer-col a {
+    color: #fcffc9;
+    /* teal-ish links */
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.footer-col a:hover {
+    text-decoration: underline;
+}
+
+.footer-brand {
+    border-left: 1px solid #dedac5;
+    padding-left: 20px;
+}
+
+.footer-logo {
+    font-family: "Poppins", system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 1.8rem;
+    color: #5c999b;
+    /* PetPal teal */
+    margin-bottom: 10px;
+}
+
+.footer-address,
+.footer-contact {
+    margin: 0 0 10px;
+    color: #e0ddc8;
+    font-size: 0.95rem;
+}
+
+.footer-contact a {
+    color: #529597;
+    text-decoration: none;
+}
+
+.footer-contact a:hover {
+    text-decoration: underline;
+}
+
+.footer-social {
+    display: flex;
+    gap: 10px;
+}
+
+.footer-social a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    text-decoration: none;
+}
+
+.footer-social svg {
+    width: 22px;
+    height: 22px;
+    fill: #e0ddc8;
+}
+
+.footer-social a:hover {
+    transform: translateY(-1px);
+}
+
+/* Responsive: stack columns on small screens */
+@media (max-width: 900px) {
+    .footer-inner {
+        grid-template-columns: 1fr 1fr;
+        row-gap: 24px;
+    }
+
+    .footer-brand {
+        border-left: none;
+        padding-left: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .footer-inner {
+        grid-template-columns: 1fr;
+    }
+}
+
+.section-container {
+    background-color: rgb(255, 255, 255);
+    margin: 50px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
+/* ============================
+   RESPONSIVE: TABLET & PHONE
+   ============================ */
+
+/* 1) Tablets & small laptops (≤ 900px) */
+@media (max-width: 900px) {
+
+    /* Overall container less wide & more breathing room */
+    .container {
+        padding: 0 12px;
+    }
+
+    /* NAV: stack nicely and center */
+    .nav {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 0.75rem;
+        padding: 0.75rem 1rem;
+    }
+
+    .logo a {
+        font-size: 1.6rem;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.75rem;
+    }
+
+    .search-container {
+        margin-right: 0;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .search-container input {
+        width: 80%;
+        max-width: 320px;
+    }
+
+    /* Breeds layout: no fixed sidebar column */
+    .breeds-container {
+        grid-template-columns: 1fr;
+    }
+
+    /* Sidebar becomes slide-in panel from the left (for your toggle button) */
+    .filters-sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 280px;
+        height: 100vh;
+        background: #ffffff;
+        margin-left: 0 !important;
+        transform: translateX(-120%);
+        padding: 20px;
+        box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
+        z-index: 1500;
+        overflow-y: auto;
+    }
+
+    .filters-sidebar.open {
+        transform: translateX(0);
+    }
+
+    /* Cards: 2 per row on tablets */
+    .breeds-cards-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    /* Footer: 2 columns */
+    .footer-inner {
+        grid-template-columns: 1fr 1fr;
+        row-gap: 24px;
+    }
+
+    .footer-brand {
+        border-left: none;
+        padding-left: 0;
+    }
+
+    /* Section containers: reduce margins on smaller screens */
+    .section-container {
+        margin: 24px 12px;
+        padding: 12px;
+    }
+}
+
+/* 2) Phones (≤ 600px) */
+@media (max-width: 600px) {
+
+    /* NAV tighter */
+    .nav {
+        padding: 0.75rem;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .nav-links a {
+        width: 90%;
+        margin: 4px auto;
+        padding: 0.6rem 0;
+    }
+
+    .search-container input {
+        width: 90%;
+        max-width: none;
+        margin: 6px 0 0;
+    }
+
+    /* Cards: 1 per row on small phones */
+    .breeds-cards-container {
+        grid-template-columns: 1fr;
+    }
+
+    /* Breed profile header text smaller */
+    .breed-profile-header h1 {
+        font-size: 2rem;
+    }
+
+    /* Footer: single column */
+    .footer-inner {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .site-footer,
+    .main-footer {
+        padding: 24px 12px 20px;
+    }
+
+    /* Section container margins tighter */
+    .section-container {
+        margin: 16px 10px;
+        padding: 10px;
+    }
+}
+
+
+/* copyright */
+.Copyright {
+    text-align: center;
+    padding: 10px 0;
+    color: #777;
+    font-size: 0.9rem;
+}
